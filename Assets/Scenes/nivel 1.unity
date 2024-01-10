@@ -28120,6 +28120,7 @@ GameObject:
   - component: {fileID: 1305680213}
   - component: {fileID: 1305680212}
   - component: {fileID: 1305680215}
+  - component: {fileID: 1305680216}
   m_Layer: 0
   m_Name: Mario_0
   m_TagString: Untagged
@@ -28266,6 +28267,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.32}
   m_EdgeRadius: 0
+--- !u!114 &1305680216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305680211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f071e8d9c5245e479d3c7442f3ffe2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newPosition: {x: 50, y: 5, z: 0}
+  movementSpeed: 5
+  jump: 0
 --- !u!1 &1306347402
 GameObject:
   m_ObjectHideFlags: 0
