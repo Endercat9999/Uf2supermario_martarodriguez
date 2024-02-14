@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Animator anim;
 
+    AudioSource source;
+
     public Vector3 newPosition = new Vector3(50, 5, 0);
 
     public float jumpforce = 5;
@@ -20,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed = 5;
     private float inputHorizontal;
     public bool jump = false;
+
+    public AudioClip jumpSound; 
     
    
    void Awake()
@@ -27,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     rBody = GetComponent<Rigidbody2D>();
     render = GetComponent <SpriteRenderer>();
     anim = GetComponent <Animator>();
+    source = GetComponent <AudioSource>();
    }
     
     // Start is called before the first frame update
@@ -67,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
             
            rBody.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
            anim.SetBool("IsJumping", true); 
+           source.PlayOneShot(jumpSound);
         }
         
          if(Input.GetButtonDown("Jump") && sensor.isGrounded == true)
