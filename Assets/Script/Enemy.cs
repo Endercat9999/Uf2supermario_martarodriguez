@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
+
+ 
 
 public class Enemy : MonoBehaviour
 
@@ -25,6 +28,7 @@ public class Enemy : MonoBehaviour
         rBody = GetComponent<Rigidbody2D>();
         source = GetComponent<AudioSource>();
         boxColider = GetComponent <BoxCollider2D>();
+        
     }
 
     // Update is called once per frame
@@ -47,14 +51,18 @@ public class Enemy : MonoBehaviour
         }
         }
 
-    
         if(collision.gameObject.tag == "Player")
         {
             Destroy(collision.gameObject);
+            SceneManager.LoadScene("Death scene");
         }
         
     }
-
+    public void LoadDeathscene()
+    {
+        SceneManager.LoadScene("Death scene");
+        
+    }
     public void GoombaDeath()
     {
         source.PlayOneShot(deathSound);
@@ -62,5 +70,6 @@ public class Enemy : MonoBehaviour
         rBody.gravityScale = 0; 
         enemyDirection = 0; 
         Destroy(gameObject, 0.5f);
+
     }
 }

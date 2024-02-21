@@ -22,5 +22,12 @@ public class menuManager : MonoBehaviour
     public void LoadFirtsLevel()
     {
         SceneManager.LoadScene("nivel 1");
+        
     }
+    public void LoadMenuPrincipal()
+    {
+        SceneManager.LoadScene("menu principal");
+        
+    }
+
 }
