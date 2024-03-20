@@ -24,6 +24,18 @@ public class PlayerMovement : MonoBehaviour
     public bool jump = false;
 
     public AudioClip jumpSound; 
+
+    public Transform bulledSpeed;
+
+    public Transform bulledPrefab;
+    public Transform bulledSpawn;
+
+    private bool canShoot = true;
+
+    public float timer;
+    public float reatOffire =1;
+
+
     
    
    void Awake()
@@ -67,7 +79,59 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Estoy saltando");
         }*/
 
-        if(Input.GetButtonDown("Jump") && sensor.isGrounded == true)
+        Movment();
+
+        Jump();
+
+        Shoot();
+    }
+    
+    void FixedUpdate() 
+    {
+      rBody.velocity = new Vector2(inputHorizontal * movementSpeed * Time.deltaTime, rBody.velocity.y);  
+    }
+
+    void Shoot()
+    {
+        if (!canShoot)
+        {
+            timer += Time.deltaTime;
+            if(timer  >= reatOffire)
+            {
+                canShoot = true;
+
+                timer = 0;
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.F) && canShoot)
+        {
+            Instantiate(bulledPrefab, bulledSpawn.position, bulledSpawn.rotation);
+
+            canShoot =false;
+        }
+    }
+
+    void Movment()
+   {
+    if(inputHorizontal < 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 100, 0);
+                anim.SetBool("IsRunning", true);
+            }
+            else if (inputHorizontal > 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                anim.SetBool("IsRunning", true);
+            }
+            else
+            {
+            anim.SetBool("IsRunning", false);   
+            }
+   }
+
+   void Jump()
+   {
+     if(Input.GetButtonDown("Jump") && sensor.isGrounded == true)
         {
             
            rBody.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
@@ -81,25 +145,5 @@ public class PlayerMovement : MonoBehaviour
            rBody.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
            anim.SetBool("IsJumping", true); 
         }
-
-        if(inputHorizontal < 0)
-        {
-            render.flipX = true;
-            anim.SetBool("IsRunning", true);
-        }
-        else if (inputHorizontal > 0)
-        {
-            render.flipX = false;
-            anim.SetBool("IsRunning", true);
-        }
-        else
-        {
-          anim.SetBool("IsRunning", false);   
-        }
-    }
-    
-    void FixedUpdate() 
-    {
-      rBody.velocity = new Vector2(inputHorizontal * movementSpeed * Time.deltaTime, rBody.velocity.y);  
-    }
+   }
 }
