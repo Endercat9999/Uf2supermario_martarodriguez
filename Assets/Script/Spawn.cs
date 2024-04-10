@@ -32,11 +32,16 @@ public class Spawn : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if(timer >= waitTime)
+        /*if(timer >= waitTime)
         {
           Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
 
           timer = 0;  
+        }*/
+
+        foreach(Transform point in spawnPoint)
+        {
+            Instantiate(enemyPrefab[0], spawnPoint.position, spawnPoint.rotation);
         }
 
         //Instantiate(enemyPrefab, transform.position, transform.rotation);

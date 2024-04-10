@@ -35,6 +35,9 @@ public class PlayerMovement : MonoBehaviour
     public float timer;
     public float reatOffire =1;
 
+    public Transform hitBox;
+    public float hitBox = 2;
+
 
     
    
@@ -84,6 +87,11 @@ public class PlayerMovement : MonoBehaviour
         Jump();
 
         Shoot();
+
+        if(Imput.GetKeyDown(KeyCode.J))
+        {
+            Attack();
+        }
     }
     
     void FixedUpdate() 
@@ -109,6 +117,28 @@ public class PlayerMovement : MonoBehaviour
 
             canShoot =false;
         }
+    }
+
+
+    void Attack()
+    {
+        Collider2D[] enemies = Physics2D.OverlapcicleAll(hitBox.position, hitBoxRadius);
+
+        foreach(Collider2D enemy in enemies)
+        {
+            if(enemy.gameObject.tag == "Goombas")
+            {
+                //Destroy(enemy.gameObject);
+                Enemy enemyScript = enemy.GetComponent<Enemy>();
+                enemyScript.GoombaDeath();
+            }
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmo.color = Color.Blue;
+        Gizmo.DrawinreSphere(hitBox.position, hitBoxRadius);
     }
 
     void Movment()
