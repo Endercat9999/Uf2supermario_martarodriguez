@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
 {
     public AudioSource source;
 
+    private GameManager gameManager;
+
     public AudioClip deathSound;
 
     private BoxCollider2D boxColider; 
@@ -28,6 +30,7 @@ public class Enemy : MonoBehaviour
         rBody = GetComponent<Rigidbody2D>();
         source = GetComponent<AudioSource>();
         boxColider = GetComponent <BoxCollider2D>();
+        gameManager = GameObject.Find("Game manager").GetComponent<GameManager>();
         
     }
 
@@ -71,5 +74,15 @@ public class Enemy : MonoBehaviour
         enemyDirection = 0; 
         Destroy(gameObject, 0.5f);
 
+    }
+
+    void OnBecameVisible()
+    {
+        gameManager.enemisInScrean.Add(this.gameObject);
+    }
+
+    void OnBecameInvisible()
+    {
+        gameManager.enemisInScrean.Remove(this.gameObject);
     }
 }
