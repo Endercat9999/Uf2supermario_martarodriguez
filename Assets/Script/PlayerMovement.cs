@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManager;
 public class PlayerMovement : MonoBehaviour
 {
     
@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     public bool jump = false;
 
     public AudioClip jumpSound; 
+
+    public AudioClip deathSound;
 
     public Transform bulledSpeed;
 
@@ -176,4 +178,21 @@ public class PlayerMovement : MonoBehaviour
            anim.SetBool("IsJumping", true); 
         }
    }
+
+   public void Death()
+   {
+    Source.PlayOneShot (deathSound)
+
+    SceneManager.LoadScrean();
+   }
+
+   IEnumerator Die()
+   {
+    source.PlayOneShot(deathSound);
+
+    yield return null;
+
+    SceneManager.LoadScrean(0);
+   }
+
 }

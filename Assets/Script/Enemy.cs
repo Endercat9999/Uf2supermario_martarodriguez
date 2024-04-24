@@ -56,8 +56,9 @@ public class Enemy : MonoBehaviour
 
         if(collision.gameObject.tag == "Player")
         {
-            Destroy(collision.gameObject);
-            SceneManager.LoadScene("Death scene");
+            PlayerMovement playerScript = collision.gameObject.GetComponent<PlayerMovement>();
+
+            playerScript.Death();
         }
         
     }
